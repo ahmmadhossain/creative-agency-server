@@ -21,15 +21,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(fileUpload());
 
 
-client.connect((err) => {
-  if (err) {
-    console.log("Database error", err);
+client.connect((error) => {
+  if (error) {
+    console.log("Database connection error", error);
     return;
   }
   console.log("Database connected");
   const db = client.db(`${process.env.DB_NAME}`);
 
-  
+  const servicesCollection = db.collection("services");
+  const adminsCollection = db.collection("admins");
+  const reviewsCollection = db.collection("reviews");
+  const ordersCollection = db.collection("orders");
+
+  require("./server/services")(app, servicesCollection);
+  require("./server/admins")(app, adminsCollection);
+  require("./server/reviews")(app, reviewsCollection);
+  require("./server/orders")(app, ordersCollection);
 });
 
 app.get("/", (req, res) => {
