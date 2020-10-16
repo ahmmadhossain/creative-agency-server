@@ -5,7 +5,7 @@ const fileUpload = require("express-fileupload");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.port || 5000;
+const PORT = process.env.port||4083;
 
 const MongoClient = require("mongodb").MongoClient;
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.mq04u.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
